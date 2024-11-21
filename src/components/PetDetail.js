@@ -1,21 +1,27 @@
 import React from "react";
 import petsData from "../petsData";
+import { useQuery } from "@tanstack/react-query";
+import { getPetById } from "../API/pets";
+
 const PetDetail = () => {
-  const pet = petsData[0];
+  const { data, isFetching, isSuccess } = useQuery({
+    queryKey: ["petData"],
+    queryFn: () => getPetById(158),
+  });
   return (
     <div className="bg-[#F9E3BE] w-screen h-[100vh] flex justify-center items-center">
       <div className="border border-black rounded-md w-[70%] h-[70%] overflow-hidden flex flex-col md:flex-row p-5">
         <div className="h-full w-full md:w-[35%]">
           <img
-            src={pet.image}
-            alt={pet.name}
+            src={data?.image}
+            alt={data?.name}
             className="object-contain w-full h-full"
           />
         </div>
         <div className="w-full md:w-[65%] h-full pt-[30px] flex flex-col p-3">
-          <h1>Name: {pet.name}</h1>
-          <h1>Type: {pet.type}</h1>
-          <h1>adopted: {pet.adopted}</h1>
+          <h1>Name: {data?.name}</h1>
+          <h1>Type: {data?.type}</h1>
+          <h1>adopted: {data?.adopted}</h1>
 
           <button className="w-[70px] border border-black rounded-md  hover:bg-green-400 mb-5">
             Adobt
