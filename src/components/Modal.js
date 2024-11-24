@@ -10,15 +10,17 @@ const Modal = ({ show, setShowModal }) => {
   const [available, setAvailable] = useState(0);
 
   const mutation = useMutation({
-    mutationKey: ["addPet"],
     mutationFn: (newPetData) => addPet(newPetData),
   });
 
   const handleSubmit = () => {
-    mutation.mutate({ name: name, type: type, image: image, adopt: available });
-    if (mutation.isSuccess) {
-      setShowModal(false);
-    }
+    mutation.mutate({
+      name: name,
+      type: type,
+      image: image,
+      adopted: available,
+    });
+    setShowModal(false);
   };
 
   if (!show) return "";

@@ -1,16 +1,15 @@
 import React, { useState, useSyncExternalStore } from "react";
-import petsData from "../petsData";
 import PetItem from "./PetItem";
 import Modal from "./Modal";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPets } from "../API/pets";
 
-const PetList = () => {
+const PetList = (setPetId) => {
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const { data, isFetching, isSuccess, refetch } = useQuery({
-    queryKey: ["petDataList"],
+  const { data, refetch } = useQuery({
+    queryKey: ["pets"],
     queryFn: getAllPets,
     enabled: false,
   });
